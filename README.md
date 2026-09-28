@@ -285,7 +285,7 @@ StoryFlip is a personal project built with **AI-assisted coding**. I am not a so
 
 The StoryFlip splash-screen artwork was based on an AI-generated reference and manually redrawn pixel by pixel. The six main-menu icons were drawn pixel by pixel by hand.
 
-The small folder and NFC list icons are based on Momentum Firmware assets and are documented in `ASSET-NOTICES.md`.
+The small folder and NFC list icons are based on Momentum Firmware assets and are documented in [ASSET-NOTICES.md](ASSET-NOTICES.md).
 
 ## Firmware compatibility
 
@@ -394,7 +394,7 @@ Use NFC files only where you have the right to use them. StoryFlip does not incl
 
 ## License
 
-StoryFlip is distributed under the **GNU General Public License v3.0**. See `LICENSE`.
+StoryFlip is distributed under the **GNU General Public License v3.0**. See [LICENSE](LICENSE).
 
 ---
 
