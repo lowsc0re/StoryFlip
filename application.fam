@@ -1,0 +1,15 @@
+App(
+    appid="storyflip",
+    name="StoryFlip",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="storyflip_app",
+    requires=["gui", "storage", "dialogs", "nfc"],
+    stack_size=8192,
+    sources=["storyflip.c", "sf_store.c", "sf_browser.c", "sf_i18n.c", "sf_fonts.c"],
+    fap_version=(0, 4, 2),
+    fap_icon_assets="assets",
+    fap_category="NFC",
+    fap_icon="icons/storyflip_10px.png",
+    fap_description="SLIX library, favorites, ratings and search",
+    fap_author="lowsc0re",
+)
