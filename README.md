@@ -36,6 +36,8 @@ The project started as a personal tool for my own Flipper Zero. It was never pla
 
 ## Installation
 
+Download the latest release from the [Releases page](https://github.com/lowsc0re/StoryFlip/releases).
+
 Copy:
 
 ```text
@@ -300,7 +302,7 @@ The 0.4.2 binary is built against:
 d3f89dfe2ef6b01839201598e9be1590cba80322
 ```
 
-See `VALIDATION.md` for build information, host-test coverage and on-device validation.
+See [VALIDATION.md](VALIDATION.md) for build information, host-test coverage and on-device validation.
 
 ## Building from source
 
@@ -381,8 +383,8 @@ StoryFlip depends on the Flipper Zero and Momentum Firmware SDK environment.
 
 Third-party asset and font notices are documented in:
 
-* `ASSET-NOTICES.md`
-* `FONT-NOTICES.md`
+* [ASSET-NOTICES.md](ASSET-NOTICES.md)
+* [FONT-NOTICES.md](FONT-NOTICES.md)
 
 ## Disclaimer
 
