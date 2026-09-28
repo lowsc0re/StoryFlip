@@ -161,7 +161,7 @@ Passed:
 * existing saved configuration remains compatible
 * splash images and collection tile are embedded
 * menu tiles and shadows use the corrected vertical position
-* selection corners use equal three-pixel arms
+* selection corners use three pixels each, forming equal-length L-shaped arms
 * About displays version 0.4.2
 
 The SDK binary version field stores only major and minor values, so that field remains `0.4` even though the application UI and package version are 0.4.2.
