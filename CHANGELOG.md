@@ -5,6 +5,17 @@ All notable changes to StoryFlip are documented here.
 **StoryFlip 0.4.2 is the first public release.**  
 Earlier versions listed below were private development milestones and are included for project history.
 
+## [0.5.1] - 2026-10-02
+
+### Fixed
+
+- Moved **Assign categories** to the third position in the NFC context menu, after the favorite action.
+- Updated selected buttons in the separate favorites view to use three-pixel L-shaped corners matching the main menu.
+
+### Changed
+
+- Replaced the application icon.
+
 ## [0.5.0] - 2026-10-02
 
 ### Added
