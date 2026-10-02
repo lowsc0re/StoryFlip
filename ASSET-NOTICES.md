@@ -4,10 +4,10 @@
 
 The following assets were created specifically for StoryFlip:
 
-* the six main-menu PNG icons
+* the eight main-menu PNG icons
 * the three language-specific splash screens
 
-The six main-menu icons were drawn pixel by pixel by hand.
+The eight main-menu icons were drawn pixel by pixel by hand.
 
 The splash-screen artwork was based on an AI-generated reference and manually redrawn pixel by pixel for the app.
 

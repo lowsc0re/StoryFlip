@@ -1,8 +1,8 @@
-# StoryFlip 0.4.2
+# StoryFlip 0.5.0
 
-**StoryFlip** is a native Flipper Zero application for browsing, searching, organizing and directly emulating a collection of **SLIX `.nfc` files**.
+**StoryFlip** is a native Flipper Zero application for browsing, organizing, searching and directly emulating **SLIX `.nfc` files**.
 
-The project started as a personal tool for my own Flipper Zero. It was never planned as a public project, but it became useful enough that I decided to clean it up and publish it.
+It started as a personal tool for my own Flipper Zero and grew into a more complete library and playback interface.
 
 ![StoryFlip splash screen](docs/images/splash-screen.png)
 
@@ -13,26 +13,27 @@ The project started as a personal tool for my own Flipper Zero. It was never pla
 > * Momentum mainline `mntm-012` from **2026-01-01**
 > * Momentum dev `d3f89dfe` from **2026-08-18**
 >
-> The included 0.4.2 FAP is built against Momentum dev commit
+> The included 0.5.0 FAP is built against Momentum dev commit
 > `d3f89dfe2ef6b01839201598e9be1590cba80322`,
 > SDK API **87.1**, hardware target **7**.
 
 ## Highlights
 
-* Browse folders containing SLIX `.nfc` files
-* Start SLIX emulation directly from the file list
-* Favorites
+* Browse SLIX `.nfc` files and folders
+* Direct SLIX emulation
+* NFC and folder favorites
+* Separate or combined favorites view
+* User-defined categories
+* Assign one NFC file to multiple categories
+* Replay the last successfully started NFC file
 * 1 to 5 star ratings
-* Recent history
+* Recent history with up to 50 entries
 * Most-played Top 50
-* Persistent filename search index
+* Persistent filename search
 * Configurable collection root folder
 * English, German and French UI
 * Persistent settings and metadata
-* Context menu available from every NFC-file list
-* Static emulation screen with no scrolling animation
-* Confirmation dialogs for destructive actions
-* Metadata cleanup and index diagnostics
+* Context menu for NFC-file actions
 
 ## Installation
 
@@ -64,143 +65,167 @@ You can change it at any time under:
 Settings > Change Root Folder
 ```
 
-Existing installations keep their saved root path during updates.
-
-StoryFlip stores its own settings and metadata separately in:
+StoryFlip stores its settings and metadata in:
 
 ```text
 /ext/apps_data/storyflip/
 ```
 
-When updating the app, replace the FAP but keep this directory if you want to preserve your settings, favorites, ratings, history and search data.
+Keep this directory when updating if you want to preserve your settings, favorites, ratings, history, categories and search data.
 
 ## Main menu
 
-The home screen contains six fixed entries:
+StoryFlip 0.5.0 uses eight entries:
 
-| Left | Center | Right |
-| --- | --- | --- |
-| Collection | Recent | Favorites |
-| Statistics | Search | Settings |
+| Row | Left | Left center | Right center | Right |
+| --- | --- | --- | --- | --- |
+| 1 | Collection | Favorites | Categories | Search |
+| 2 | Replay | Recent | Statistics | Settings |
 
-The UI language can be changed between **English**, **Deutsch** and **Français**. English is used on the first start.
+The UI language can be changed between **English**, **Deutsch** and **Français**.
 
 ![StoryFlip main menu](docs/images/main-menu.png)
 
-## Collection and controls
+## Collection
 
 Open **Collection** to browse the configured root folder and its subfolders.
 
 ![StoryFlip collection browser](docs/images/collection.png)
 
-| Input                         | Action                                     |
-| ----------------------------- | ------------------------------------------ |
-| Up / Down                     | Move through the current list              |
-| OK on a folder                | Open the folder                            |
-| OK on an NFC file             | Start SLIX emulation                       |
-| Back                          | Go to the parent folder or previous screen |
-| **Hold Right on an NFC file** | Open the StoryFlip context menu            |
-
-Normal browsing reads only the currently opened directory. Up to three opened folders can be cached under a combined 24 KiB name-data budget.
+| Input | Action |
+| --- | --- |
+| Up / Down | Move through the current list |
+| OK on a folder | Open the folder |
+| OK on an NFC file | Start SLIX emulation |
+| Back | Go to the parent folder or previous screen |
+| **Hold Right on an NFC file** | Open the StoryFlip context menu |
 
 ## Context menu
 
-Hold **Right** on any NFC file to open the StoryFlip context menu.
-
-This works from:
-
-* Collection
-* Recent
-* Favorites
-* Search results
-* Rating result lists
-* Most played
+Hold **Right** on an NFC file to open the StoryFlip context menu.
 
 ![StoryFlip context menu](docs/images/context-menu.png)
 
-The context menu contains:
+Available actions include:
 
-* **Information**  
-  Shows the filename, favorite state, rating, recorded starts and last-start information.
+* **Information**
+* **Add favorite / Remove favorite**
+* **Set rating**
+* **Remove rating**
+* **Assign categories**
+* **Delete NFC file**
 
-* **Add favorite / Remove favorite**  
-  Toggles the favorite flag.
+Deleting an NFC file always requires confirmation.
 
-* **Set rating**  
-  Assigns a rating from 1 to 5 stars.
+Favorites, ratings, statistics and category assignments are StoryFlip metadata and do not modify the original NFC file.
 
-* **Remove rating**  
-  Clears the saved rating.
-
-* **Delete NFC file**  
-  Deletes the selected original `.nfc` file after an explicit confirmation.
-
-Favorites, ratings and statistics are StoryFlip metadata. Changing them does not modify the original NFC file.
-
-## Emulation
+## SLIX emulation
 
 Press **OK** on an NFC file to start emulation.
 
-StoryFlip 0.4.2 only starts files whose protocol is recognized as **SLIX**. A missing file, load failure, unsupported protocol, NFC initialization problem or insufficient memory does not increment the start counter.
-
-A start is counted after the file has loaded, the protocol check has passed and the SLIX listener has been started. This is **not** proof that an external reader accepted or played the emulated tag.
+StoryFlip only starts files whose protocol is recognized as **SLIX**.
 
 While emulation is active:
 
 * the screen stays static
-* long text is clipped instead of animated
-* other buttons are ignored
-* **Back** stops emulation and returns to the list
+* long filenames can wrap across multiple lines
+* **Back** stops emulation and returns to the previous list
 
-The source NFC file is never written back during emulation.
+The source NFC file is not modified during emulation.
 
 ![StoryFlip emulation screen](docs/images/emulation-screen.png)
 
-## Favorites and ratings
+## Favorites
 
-Favorite files appear in the dedicated **Favorites** view.
+StoryFlip supports favorites for both NFC files and folders.
 
 ![StoryFlip favorites](docs/images/favorites.png)
 
-Ratings are stored from **1 to 5 stars** and can be browsed through **Statistics > Ratings**.
+Two favorites views are available:
 
-A `*` at the right side of a list entry marks a favorite. A number next to it shows the saved star rating.
+* **Separate**  
+  Folders and NFC files are opened through separate buttons.
 
-The Statistics menu provides access to ratings and the most-played list.
+* **List**  
+  Folder favorites and NFC favorites are shown together in one list.
 
-![StoryFlip statistics menu](docs/images/statistics.png)
+![StoryFlip separate favorites view](docs/images/favorites-view.png)
+
+Opening a favorite folder starts browsing directly in that folder.
+
+## Ratings and statistics
+
+NFC files can be rated from **1 to 5 stars**.
 
 ![StoryFlip ratings view](docs/images/ratings.png)
 
-## Recent and most played
+The **Statistics** menu provides access to ratings, Most played and Categories.
 
-**Recent** shows the five most recently started distinct filenames.
+![StoryFlip statistics menu](docs/images/statistics.png)
 
-StoryFlip uses an internal monotonically increasing start order so that multiple starts within the same second remain correctly ordered.
+### Most played
 
-![StoryFlip recent view](docs/images/recent.png)
-
-**Statistics > Most played** shows up to 50 entries ordered by recorded start count.
+**Statistics > Most played** shows up to 50 entries ordered by start count.
 
 ![StoryFlip top 50 view](docs/images/top-50.png)
 
-Clearing history resets recent ordering while keeping the total start counters.
+### Categories in Statistics
+
+**Statistics > Categories** shows your categories together with the number of assigned NFC files.
+
+Press **OK** on a category to open its assigned files.
+
+## Categories
+
+Categories can be created and managed directly on the Flipper Zero.
+
+Open:
+
+```text
+Categories > Create category
+```
+
+and enter a name using the on-device keyboard.
+
+![StoryFlip categories](docs/images/categories.png)
+
+Hold **Right** on a category to rename or delete it.
+
+Deleting a category removes only the category and its assignments. NFC files are not deleted.
+
+### Assigning NFC files
+
+From an NFC file context menu choose:
+
+```text
+Assign categories
+```
+
+One NFC file can belong to multiple categories.
+
+![StoryFlip category assignment](docs/images/category-assignment.png)
+
+## Recent and Replay
+
+**Recent** shows up to **50** recently started distinct NFC files.
+
+![StoryFlip recent view](docs/images/recent.png)
+
+### Replay
+
+**Replay** immediately starts the last successfully started NFC file.
+
+The Replay entry remains available after restarting StoryFlip.
+
+If the referenced file is missing or unsupported, StoryFlip shows an error instead of starting it.
 
 ## Search
 
-StoryFlip uses its own persistent filename index.
+StoryFlip uses a persistent filename index for fast searching across the configured collection.
 
-On the first search, the app asks to build a complete index for the configured collection root.
+On the first search, StoryFlip asks to build the index.
 
-The indexer:
-
-* walks the configured root and its subfolders
-* records directories and NFC-file paths
-* does not read NFC payload contents while indexing
-* stores its working queue on the SD card
-* keeps the previous valid index if a rebuild is cancelled
-
-Search performs a substring match against filenames and ignores ASCII letter case.
+Search matches filenames and ignores ASCII letter case.
 
 New or moved files become searchable after **Rebuild Search Index**.
 
@@ -214,23 +239,17 @@ Open:
 Settings > Change Root Folder
 ```
 
-The picker starts at `/ext`.
-
 Navigate into the desired directory and select:
 
 ```text
 > Use this Folder
 ```
 
-This action is deliberately shown in bold and is the only ordinary list action prefixed by `>`.
-
-After changing the root, StoryFlip offers to rebuild the search index because paths from the previous root may no longer be valid.
-
-A successful rebuild can update stored paths for existing metadata when the exact filename is found again.
+StoryFlip then offers to rebuild the search index for the new root.
 
 ## Settings
 
-StoryFlip 0.4.2 uses the same settings order in all three languages:
+StoryFlip 0.5.0 provides:
 
 1. Language
 2. Index - diagnostic
@@ -240,69 +259,49 @@ StoryFlip 0.4.2 uses the same settings order in all three languages:
 6. Clear Favorites
 7. Clean Metadata
 8. Change Root Folder
-9. About StoryFlip
+9. Favorites view
+10. About StoryFlip
 
 ![StoryFlip settings](docs/images/settings.png)
 
 ### Index - diagnostic
 
-Shows diagnostic information about the metadata store, search index, available memory and current root.
+Shows information about the current search index and collection root.
 
 ### Clean Metadata
 
-Removes metadata records whose stored file path no longer exists.
-
-It does **not** recursively search the collection for another copy of a moved file.
+Removes StoryFlip metadata for files that no longer exist at their stored path.
 
 ### About StoryFlip
 
-The About screen contains the app name, version and a short development note.
+Shows the app name, version and a short development note.
 
-## Storage model
+## Updating from 0.4.2
 
-StoryFlip keeps application data under:
+Updating to 0.5.0 preserves existing settings and metadata.
 
-```text
-/ext/apps_data/storyflip/
-```
+The new category, folder-favorite and Replay data is stored separately and created automatically when needed.
 
-Persistent files:
-
-```text
-config.a / config.b   Root folder and language
-meta.a   / meta.b     Favorites, ratings, starts and history
-search.a / search.b   Search index and associated root
-list.tmp / queue.tmp  Temporary working files
-```
-
-Configuration, metadata and search data use two alternating slots with generation counters and CRC32 validation. The app writes the inactive slot, synchronizes it and validates it before that generation becomes active.
-
-The exact full filename including `.nfc` is StoryFlip's logical metadata identity. Two files with exactly the same filename in different folders therefore share StoryFlip metadata.
+The new favorites view defaults to **Separate**.
 
 ## AI-assisted development
 
 StoryFlip is a personal project built with **AI-assisted coding**. I am not a software developer.
-
-The StoryFlip splash-screen artwork was based on an AI-generated reference and manually redrawn pixel by pixel. The six main-menu icons were drawn pixel by pixel by hand.
-
-The small folder and NFC list icons are based on Momentum Firmware assets and are documented in [ASSET-NOTICES.md](ASSET-NOTICES.md).
 
 ## Firmware compatibility
 
 | Firmware | Date | Status |
 | --- | --- | --- |
 | Momentum mainline `mntm-012` | 2026-01-01 | Used/tested with StoryFlip |
-| Momentum dev `d3f89dfe` | 2026-08-18 | Used/tested; build SDK for 0.4.2 |
+| Momentum dev `d3f89dfe` | 2026-08-18 | Build SDK for 0.5.0 |
 | Official Flipper Zero firmware | - | Not tested |
 | Other custom firmware | - | Not tested |
 
-The 0.4.2 binary is built against:
+The 0.5.0 binary is built against:
 
 ```text
 d3f89dfe2ef6b01839201598e9be1590cba80322
 ```
-
-See [VALIDATION.md](VALIDATION.md) for build information, host-test coverage and on-device validation.
 
 ## Building from source
 
@@ -324,8 +323,6 @@ On Windows:
 python build.py
 ```
 
-The build helper uses a local `.build-sdk` directory, downloads the pinned SDK and verifies its SHA256.
-
 Alternatively, place the project in a matching Momentum Firmware checkout under:
 
 ```text
@@ -338,41 +335,15 @@ and build with:
 ./fbt fap_storyflip
 ```
 
-## Project layout
+## Build
+
+The included 0.5.0 FAP has:
 
 ```text
-StoryFlip/
-├── assets/             Splash screens and UI icons
-├── docs/
-│   └── images/         README screenshots
-├── dist/
-│   └── storyflip.fap   Ready-to-install application
-├── icons/              10x10 external-app icon
-├── tests/              Host-side tests and rendering helpers
-├── application.fam     FAP manifest
-├── build.py            Build helper
-├── sf_browser.*        Folder browser and cache
-├── sf_fonts.*          Embedded fonts
-├── sf_i18n.*           English, German and French strings
-├── sf_store.*          Persistent storage
-├── storyflip.c         Main application
-├── ASSET-NOTICES.md    Asset provenance
-├── FONT-NOTICES.md     Embedded font notices
-├── VALIDATION.md       Validation and build report
-└── LICENSE             Project license
+SHA256: 444b6cff54b818d24b1e73976ef40912efd812d72d535470ae64789883721844
 ```
 
-## Validation
-
-The included FAP has:
-
-```text
-SHA256: f0af5192e2bbdaa9d43ff83bf455ce22dcb20956ecdbe72b61b981c9d6f0540d
-```
-
-The host-side test suite covers persistence, power-loss style interrupted writes, CRC fallback, browser caching, search-index behavior, UI rendering and important edge cases.
-
-The private NFC collection used during development is **not included** in this repository.
+The 0.5.0 build passed the Momentum SDK build and FAP API checks.
 
 ## Credits and notices
 
@@ -398,4 +369,4 @@ StoryFlip is distributed under the **GNU General Public License v3.0**. See [LIC
 
 ---
 
-**Version 0.4.2**
+**Version 0.5.0**

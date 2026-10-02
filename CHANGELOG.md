@@ -5,6 +5,29 @@ All notable changes to StoryFlip are documented here.
 **StoryFlip 0.4.2 is the first public release.**  
 Earlier versions listed below were private development milestones and are included for project history.
 
+## [0.5.0] - 2026-10-02
+
+### Added
+
+- Eight-entry main menu with **Categories** and **Replay**.
+- User-defined categories with create, rename and delete actions.
+- Multiple category assignments per NFC file.
+- Category statistics with assigned-file counts and category file lists.
+- Folder favorites.
+- Separate and combined favorites views.
+- Persistent Replay for the last successfully started NFC file.
+
+### Changed
+
+- Final main-menu order:
+  **Collection, Favorites, Categories, Search / Replay, Recent, Statistics, Settings**.
+- Recent history now shows up to 50 distinct NFC files.
+- Emulation supports multi-line filenames.
+- Ratings are displayed with star icons.
+- Folder favorites open directly in the saved folder.
+- Index diagnostics now shows the saved index build timestamp.
+- Updated artwork and UI text for StoryFlip 0.5.0.
+
 ## [0.4.2] - 2026-09-28
 
 ### First public release
