@@ -6,7 +6,7 @@ App(
     requires=["gui", "storage", "dialogs", "nfc"],
     stack_size=8192,
     sources=["storyflip.c", "sf_store.c", "sf_browser.c", "sf_i18n.c", "sf_fonts.c", "sf_library.c"],
-    fap_version=(0, 5, 0),
+    fap_version=(0, 5, 1),
     fap_icon_assets="assets",
     fap_category="NFC",
     fap_icon="icons/storyflip_10px.png",

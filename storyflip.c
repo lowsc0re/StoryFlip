@@ -529,7 +529,18 @@ static void draw(Canvas* c, void* ctx) {
             canvas_draw_rbox(c, x + 2, y + 2, 32, 32, 2);
             canvas_set_color(c, ColorWhite); canvas_draw_rbox(c, x, y, 32, 32, 2);
             canvas_set_color(c, ColorBlack); canvas_draw_rframe(c, x, y, 32, 32, 2);
-            if(i == m->selection) { canvas_draw_rbox(c, x + 1, y + 1, 30, 30, 2); canvas_set_color(c, ColorWhite); }
+            if(i == m->selection) {
+                canvas_draw_rbox(c, x + 1, y + 1, 30, 30, 2); canvas_set_color(c, ColorWhite);
+                /* Three white pixels per corner, matching the main menu. */
+                canvas_draw_line(c, x + 1, y + 1, x + 2, y + 1);
+                canvas_draw_line(c, x + 1, y + 1, x + 1, y + 2);
+                canvas_draw_line(c, x + 29, y + 1, x + 30, y + 1);
+                canvas_draw_line(c, x + 30, y + 1, x + 30, y + 2);
+                canvas_draw_line(c, x + 1, y + 30, x + 2, y + 30);
+                canvas_draw_line(c, x + 1, y + 29, x + 1, y + 30);
+                canvas_draw_line(c, x + 29, y + 30, x + 30, y + 30);
+                canvas_draw_line(c, x + 30, y + 29, x + 30, y + 30);
+            }
             canvas_draw_icon(c, x + 11, y + 11, i == 0 ? &I_folder : &I_nfc_file);
             canvas_set_color(c, ColorBlack);
         }
@@ -661,7 +672,7 @@ static void refresh(App* a) {
     case CategoryContext: { static const char* actions[] = {"Rename category", "Delete category"}; sf_copy(m->title, sizeof(m->title), T("Categories")); labels = actions; count = 2; break; }
     case Context: {
         sf_copy(m->title, sizeof(m->title), T("Aktionen"));
-        const char* actions[] = {T("Informationen"), a->target.flags & SF_FAVORITE ? T("Favorit entfernen") : T("Favorisieren"), T("Bewerten"), T("Bewertung entfernen"), T("NFC-Datei loeschen"), T("Assign categories")};
+        const char* actions[] = {T("Informationen"), a->target.flags & SF_FAVORITE ? T("Favorit entfernen") : T("Favorisieren"), T("Assign categories"), T("Bewerten"), T("Bewertung entfernen"), T("NFC-Datei loeschen")};
         if(a->target.flags & SF_DIRECTORY) { sf_copy(m->lines[0], SF_NAME, actions[1]); m->rows = 1; break; }
         unsigned first = a->selected / SF_VISIBLE * SF_VISIBLE;
         for(unsigned i = first; i < 6 && m->rows < SF_VISIBLE; i++) sf_copy(m->lines[m->rows++], SF_NAME, actions[i]);
@@ -693,7 +704,7 @@ static void refresh(App* a) {
         } break;
     case About:
         sf_copy(m->title, sizeof(m->title), "StoryFlip"); m->rows = 2;
-        sf_copy(m->lines[0], SF_NAME, "Version 0.5.0");
+        sf_copy(m->lines[0], SF_NAME, "Version 0.5.1");
         sf_copy(m->lines[1], SF_NAME, "Vibecode Version");
         sf_copy(m->footer, sizeof(m->footer), T("OK / Back: Zurueck")); break;
     case Message:
@@ -740,7 +751,7 @@ static void home_open(App* a) {
 static void back(App* a) {
     switch(a->screen) {
     case Home: view_dispatcher_stop(a->vd); break;
-    case AssignCategories: a->screen = Context; a->selected = 5; break;
+    case AssignCategories: a->screen = Context; a->selected = 2; break;
     case Categories: a->screen = a->categories_back; a->selected = a->screen == Stats ? 2 : 0; break;
     case CategoryContext: a->screen = Categories; a->selected = a->category_selected; break;
     case FavoriteMode: a->screen = Settings; a->selected = 8; break;
@@ -820,15 +831,15 @@ static void ok(App* a) {
     case Ratings: a->rating = 5 - a->selected; open_list(a, Rated); break;
     case Rate:
         SF_SET_RATING(&a->target, 5 - a->selected);
-        a->screen = Context; a->selected = 2; save_target(a); break;
+        a->screen = Context; a->selected = 3; save_target(a); break;
     case Context:
         if(a->target.flags & SF_DIRECTORY) { a->target.flags ^= SF_FAVORITE; save_target(a); break; }
         if(a->selected == 0) a->screen = Info;
         else if(a->selected == 1) { a->target.flags ^= SF_FAVORITE; save_target(a); }
-        else if(a->selected == 2) { a->screen = Rate; a->selected = 0; }
-        else if(a->selected == 3) { SF_SET_RATING(&a->target, 0); save_target(a); }
-        else if(a->selected == 4) confirm(a, DeleteFile, Context);
-        else { a->screen = AssignCategories; a->selected = 0; }
+        else if(a->selected == 2) { a->screen = AssignCategories; a->selected = 0; }
+        else if(a->selected == 3) { a->screen = Rate; a->selected = 0; }
+        else if(a->selected == 4) { SF_SET_RATING(&a->target, 0); save_target(a); }
+        else confirm(a, DeleteFile, Context);
         break;
     case Language:
         if(save_config(a, a->root, a->selected)) { a->screen = Settings; a->selected = 0; }
