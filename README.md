@@ -337,13 +337,13 @@ and build with:
 
 ## Build
 
-The included 0.5.0 FAP has:
+The included 0.5.1 FAP has:
 
 ```text
-SHA256: 444b6cff54b818d24b1e73976ef40912efd812d72d535470ae64789883721844
+SHA256: 7030b9303f2dad663c82c10e6227e945fbd57ba0d5e741c81d4e6c7f32adda2f
 ```
 
-The 0.5.0 build passed the Momentum SDK build and FAP API checks.
+The 0.5.1 build passed the Momentum SDK build and FAP API checks.
 
 ## Credits and notices
 
