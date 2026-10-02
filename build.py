@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild with the exact SDK used for StoryFlip 0.4.2 (requires Python + ufbt)."""
+"""Rebuild StoryFlip with the pinned Momentum SDK (requires Python + ufbt)."""
 import hashlib
 import os
 from pathlib import Path
