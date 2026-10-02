@@ -1,4 +1,4 @@
-# StoryFlip 0.5.0
+# StoryFlip 0.5.1
 
 **StoryFlip** is a native Flipper Zero application for browsing, organizing, searching and directly emulating **SLIX `.nfc` files**.
 
@@ -13,7 +13,7 @@ It started as a personal tool for my own Flipper Zero and grew into a more compl
 > * Momentum mainline `mntm-012` from **2026-01-01**
 > * Momentum dev `d3f89dfe` from **2026-08-18**
 >
-> The included 0.5.0 FAP is built against Momentum dev commit
+> The included 0.5.1 FAP is built against Momentum dev commit
 > `d3f89dfe2ef6b01839201598e9be1590cba80322`,
 > SDK API **87.1**, hardware target **7**.
 
@@ -75,7 +75,7 @@ Keep this directory when updating if you want to preserve your settings, favorit
 
 ## Main menu
 
-StoryFlip 0.5.0 uses eight entries:
+StoryFlip 0.5.1 uses eight entries:
 
 | Row | Left | Left center | Right center | Right |
 | --- | --- | --- | --- | --- |
@@ -249,7 +249,7 @@ StoryFlip then offers to rebuild the search index for the new root.
 
 ## Settings
 
-StoryFlip 0.5.0 provides:
+StoryFlip 0.5.1 provides:
 
 1. Language
 2. Index - diagnostic
@@ -278,7 +278,7 @@ Shows the app name, version and a short development note.
 
 ## Updating from 0.4.2
 
-Updating to 0.5.0 preserves existing settings and metadata.
+Updating to 0.5.1 preserves existing settings and metadata.
 
 The new category, folder-favorite and Replay data is stored separately and created automatically when needed.
 
@@ -293,11 +293,11 @@ StoryFlip is a personal project built with **AI-assisted coding**. I am not a so
 | Firmware | Date | Status |
 | --- | --- | --- |
 | Momentum mainline `mntm-012` | 2026-01-01 | Used/tested with StoryFlip |
-| Momentum dev `d3f89dfe` | 2026-08-18 | Build SDK for 0.5.0 |
+| Momentum dev `d3f89dfe` | 2026-08-18 | Build SDK for 0.5.1 |
 | Official Flipper Zero firmware | - | Not tested |
 | Other custom firmware | - | Not tested |
 
-The 0.5.0 binary is built against:
+The 0.5.1 binary is built against:
 
 ```text
 d3f89dfe2ef6b01839201598e9be1590cba80322
@@ -369,4 +369,4 @@ StoryFlip is distributed under the **GNU General Public License v3.0**. See [LIC
 
 ---
 
-**Version 0.5.0**
+**Version 0.5.1**
